@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_RequestReview"
+  targetNamespace="https://example.com/topogram/bpmn">
+  <bpmn:process id="request_review" name="Request review" isExecutable="true">
+    <bpmn:startEvent id="submitted" name="Submitted" />
+    <bpmn:userTask id="review_request" name="Review request" />
+    <bpmn:exclusiveGateway id="review_decision" name="Review decision" />
+    <bpmn:serviceTask id="publish_decision" name="Publish decision" />
+    <bpmn:userTask id="request_changes" name="Request changes" />
+    <bpmn:endEvent id="approved" name="Approved" />
+    <bpmn:endEvent id="changes_requested" name="Changes requested" />
+    <bpmn:sequenceFlow id="flow_submit_review" sourceRef="submitted" targetRef="review_request" name="SUBMIT" />
+    <bpmn:sequenceFlow id="flow_review_decision" sourceRef="review_request" targetRef="review_decision" name="DECIDE" />
+    <bpmn:sequenceFlow id="flow_approve" sourceRef="review_decision" targetRef="publish_decision" name="APPROVE">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${approved == true}]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="flow_publish_approved" sourceRef="publish_decision" targetRef="approved" name="PUBLISH" />
+    <bpmn:sequenceFlow id="flow_request_changes" sourceRef="review_decision" targetRef="request_changes" name="REQUEST_CHANGES">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${approved == false}]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="flow_changes_requested" sourceRef="request_changes" targetRef="changes_requested" name="NOTIFY" />
+  </bpmn:process>
+</bpmn:definitions>

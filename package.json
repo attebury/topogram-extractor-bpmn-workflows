@@ -1,0 +1,41 @@
+{
+  "description": "Package-backed Topogram extractor for local BPMN workflow definitions.",
+  "devDependencies": {
+    "@topogram/cli": "^0.3.115"
+  },
+  "exports": {
+    ".": "./index.cjs",
+    "./package.json": "./package.json",
+    "./topogram-extractor.json": "./topogram-extractor.json"
+  },
+  "files": [
+    "index.cjs",
+    "topogram-extractor.json",
+    "README.md",
+    "AGENTS.md",
+    "llms.txt",
+    "llms-full.txt"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.cjs",
+  "name": "@topogram/extractor-bpmn-workflows",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/attebury/topogram-extractor-bpmn-workflows.git"
+  },
+  "scripts": {
+    "check": "npm test && npm run docs:rag:check && node ./scripts/check-extractor.mjs",
+    "docs:rag:build": "node ./scripts/build-llms-full.mjs",
+    "docs:rag:check": "node ./scripts/verify-docs-rag.mjs",
+    "pack:check": "npm pack --dry-run",
+    "release:preflight": "npm run check && npm run pack:check && npm run security:secrets",
+    "security:secrets": "node ./scripts/run-secret-scan.mjs",
+    "test": "node --test"
+  },
+  "version": "0.1.0"
+}

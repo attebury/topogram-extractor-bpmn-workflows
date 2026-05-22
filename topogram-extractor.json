@@ -1,0 +1,29 @@
+{
+  "candidateKinds": [
+    "workflow",
+    "workflow_state",
+    "workflow_transition"
+  ],
+  "capabilities": {
+    "workflows": true
+  },
+  "compatibleCliRange": "^0.3.115",
+  "evidenceTypes": [
+    "runtime_source"
+  ],
+  "extractors": [
+    "workflows.bpmn"
+  ],
+  "id": "@topogram/extractor-bpmn-workflows",
+  "package": "@topogram/extractor-bpmn-workflows",
+  "source": "package",
+  "stack": {
+    "framework": "bpmn",
+    "runtime": "bpmn-2.0",
+    "domain": "workflow"
+  },
+  "tracks": [
+    "workflows"
+  ],
+  "version": "1"
+}

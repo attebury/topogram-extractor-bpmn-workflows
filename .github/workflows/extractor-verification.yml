@@ -1,0 +1,45 @@
+name: Extractor Verification
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  verify:
+    name: Package-backed extractor smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2.3.9
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_COMMENTS: false
+          GITLEAKS_ENABLE_SUMMARY: true
+          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: true
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          scope: "@topogram"
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Verify extractor package
+        env:
+          TOPOGRAM_SECRET_SCAN_ALREADY_RAN: "1"
+        run: |
+          TOPOGRAM_CLI_VERSION="$(cat topogram-cli.version)"
+          TOPOGRAM_CLI_PACKAGE_SPEC="@topogram/cli@$TOPOGRAM_CLI_VERSION" npm run release:preflight

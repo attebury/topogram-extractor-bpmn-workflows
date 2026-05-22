@@ -1,0 +1,25 @@
+# @topogram/extractor-bpmn-workflows
+
+> Package-backed Topogram extractor for review-only BPMN `workflows` candidate discovery.
+
+Use these commands:
+
+- `npm run docs:rag:build` regenerates `llms-full.txt` from this map.
+- `npm run docs:rag:check` verifies this retrieval surface.
+- `npm test` checks the adapter export shape.
+- `npm run check` runs docs, unit, extractor, extraction, plan, query, adoption-list, and fixture mutation checks.
+- `npm run release:preflight` adds package dry-run and secret scanning before publish or broad sharing.
+
+## Start
+
+- [README](README.md): Author loop, package boundary, and candidate contract.
+- [Agent Guide](AGENTS.md): Rules for humans and agents editing this extractor pack.
+
+## Package Contract
+
+- [Extractor Manifest](topogram-extractor.json): Manifest id, version, track, source package, candidate kinds, evidence types, and compatible CLI range.
+
+## Optional
+
+- [Check Script](scripts/check-extractor.mjs): Local package smoke implementation.
+- [Secret Scan Script](scripts/run-secret-scan.mjs): Package-local Gitleaks preflight.
