@@ -1,7 +1,7 @@
 {
   "description": "Package-backed Topogram extractor for local BPMN workflow definitions.",
   "devDependencies": {
-    "@topogram/cli": "^0.3.118"
+    "@topogram/cli": "^0.3.119"
   },
   "exports": {
     ".": "./index.cjs",
